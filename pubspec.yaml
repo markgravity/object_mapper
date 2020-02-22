@@ -1,7 +1,6 @@
 name: object_mapper
 description: object_mapper is a package written in Dart that makes it easy for you to convert your model objects to and from JSON.
 version: 0.0.1
-author: MarkG
 homepage: https://github.com/markgravity/object_mapper
 
 environment:

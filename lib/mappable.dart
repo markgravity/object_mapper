@@ -4,21 +4,22 @@ import 'dart:convert';
 import 'mapper.dart';
 
 abstract class Mappable {
-	static Map<Type, Function> factories = {};
+  static Map<Type, Function> factories = {};
 
-	factory Mappable(Type type) {
-		var constructor = Mappable.factories[type];
-		assert(constructor != null, "${type.toString()} is not defined in Reflection.factories");
-		return constructor();
-	}
+  factory Mappable(Type type) {
+    var constructor = Mappable.factories[type];
+    assert(constructor != null,
+        "${type.toString()} is not defined in Reflection.factories");
+    return constructor();
+  }
 
-	void mapping(Mapper map);
+  void mapping(Mapper map);
 
-	Map<String, dynamic> toJson() {
-		return Mapper().toJson(this);
-	}
+  Map<String, dynamic> toJson() {
+    return Mapper().toJson(this);
+  }
 
-	String toJsonString() {
-		return json.encode(this.toJson());
-	}
+  String toJsonString() {
+    return json.encode(this.toJson());
+  }
 }

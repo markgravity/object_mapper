@@ -19,12 +19,12 @@ class TestInfo with Mappable {
 - **Step 2**: Override `Mappable.mapping` method & add your map functions. Check more [use cases](#map---use-cases) here
 ```dart
 class TestInfo with Mappable {
-	int id;
-	
-    @override
-	void mapping(Mapper map) {
-		map("id", id, (v) => id = v);
-	}
+ int id;
+  
+ @override
+ void mapping(Mapper map) {
+  map("id", id, (v) => id = v);
+ }
 }
 
 ```
@@ -36,7 +36,7 @@ class TestInfo with Mappable {
 - **Object from Map**
 ```dart
 final json = {
-	"id" : 2
+ "id" : 2
 };
 
 final info = Mapper.fromJson(json).toObject<TestInfo>();
@@ -58,20 +58,20 @@ print(json); // { "id": 2 }
 - `int`, `string`, `numeric`, `bool`
 ```dart
 void mapping(Mapper map) {
-	map("field", field, (v) => field = v);
+ map("field", field, (v) => field = v);
 }
 ```
 - `List` of object or nested object
 ```dart
 void mapping(Mapper map) {
-	map<ObjectClass>("field", field, (v) => field = v);
+ map<ObjectClass>("field", field, (v) => field = v);
 }
 ```
 - With transform, such as `DateTransform`, `EnumTransform`
 ```dart
 DateTime time;
 void mapping(Mapper map) {
-	map("time", time, (v) => time = v, DateTransform());
+ map("time", time, (v) => time = v, DateTransform());
 }
 ```
 
@@ -80,19 +80,17 @@ void mapping(Mapper map) {
 ## Custom transform
 
 Implement your class with `Transformable`
-```
-class EnumTransform<Object extends Enumerable, JSON> with Transformable<Object, JSON> {
-    
-    // Convert Json to Object
-	Object fromJson(value) {
-		if (value == null || !(value is JSON)) return null;
-		return RawRepresentable(Object, value);
-	}
+```dart
+class EnumTransform<Object extends Enumerable, JSON>
+    with Transformable<Object, JSON> {
+  Object fromJson(value) {
+    if (value == null || !(value is JSON)) return null;
+    return RawRepresentable(Object, value);
+  }
 
-    // Convert Object to Json
-	JSON toJson(Object value) {
-		if (value == null) return null;
-		return value.rawValue;
-	}
+  JSON toJson(Object value) {
+    if (value == null) return null;
+    return value.rawValue;
+  }
 }
 ```
