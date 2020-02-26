@@ -47,7 +47,7 @@ class TestInfo with Mappable {
 
 ## Usage
 
-- **Object from Map**
+- **Map to Object**
 ```dart
 final json = {
  "id" : 2
