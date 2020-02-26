@@ -1,6 +1,6 @@
 # Object Mapper
 
-![Coverage](https://raw.githubusercontent.com/markgravity/object_mapper/master/coverage_badge.svg?sanitize=true) [![GitHub issues](https://img.shields.io/github/issues/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/issues)[![GitHub stars](https://img.shields.io/github/stars/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/stargazers) [![GitHub license](https://img.shields.io/github/license/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/blob/master/LICENSE)
+![Coverage](https://raw.githubusercontent.com/markgravity/object_mapper/master/coverage_badge.svg?sanitize=true) [![GitHub issues](https://img.shields.io/github/issues/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/issues) [![GitHub stars](https://img.shields.io/github/stars/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/stargazers) [![GitHub license](https://img.shields.io/github/license/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/blob/master/LICENSE)
 
 ---
 
