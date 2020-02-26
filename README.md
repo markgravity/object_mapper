@@ -7,7 +7,7 @@
 A package written in Dart that makes it easy for you to convert your model objects to and from JSON.
 It's inspired by [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper)
 
-###object_mapper vs json_annotation
+**object_mapper vs json_annotation**
 
 - No extras file (`*.g.dart`), no need to use `builder_runner`
 - Re-usable `Transform` (known as `Converter` in json_annotation) with `generic`
