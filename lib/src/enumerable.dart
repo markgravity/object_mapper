@@ -2,6 +2,10 @@ import 'raw_representable.dart';
 
 abstract class Enumerable<T> implements RawRepresentable<T> {
   const Enumerable();
+  
+  //
+  @override
+  int get hashCode => super.hashCode;
 
   @override
   bool operator ==(Object other) {

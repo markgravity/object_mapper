@@ -1,9 +1,18 @@
 # 
 
+#Object Mapper
+
+![Coverage](https://raw.githubusercontent.com/markgravity/object_mapper/master/coverage_badge.svg?sanitize=true)[![GitHub issues](https://img.shields.io/github/issues/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/issues)[![GitHub stars](https://img.shields.io/github/stars/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/stargazers)[![GitHub license](https://img.shields.io/github/license/markgravity/object_mapper)](https://github.com/markgravity/object_mapper/blob/master/LICENSE)
+
+---
+
 A package written in Dart that makes it easy for you to convert your model objects to and from JSON.
 It's inspired by [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper)
 
+###object_mapper vs json_annotation
 
+- No extras file (`*.g.dart`), no need to use `builder_runner`
+- Re-usable `Transform` (known as `Converter` in json_annotation) with `generic`
 
 ## Implement
 - **Step 1**: Extend your class with `Mappable` mixin
@@ -29,6 +38,13 @@ class TestInfo with Mappable {
 
 ```
 
+* **Step 3**: Register factory for new model into `Mappable.factories`
+
+  ```dart
+  Mappable.factories = {
+    TestInfo: () => TestInfo()
+  };
+  ```
 
 
 ## Usage

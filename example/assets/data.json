@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Fantasy",
+    "books": [
+      {
+        "id": 1,
+        "name": "The Hobbit",
+        "author": "J. R. R. Tolkien",
+        "publish_at": "1937-09-21"
+      },
+      {
+        "id": 2,
+        "name": "Harry Potter",
+        "author": "J. K. Rowling",
+        "publish_at": "1997-12-01"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Romance",
+    "books": [
+      {
+        "id": 3,
+        "name": "Fifty Shades of Grey",
+        "author": "E. L. James",
+        "publish_at": "2011-05-25"
+      }
+    ]
+  }
+]
