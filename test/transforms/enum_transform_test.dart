@@ -1,6 +1,7 @@
-import '../../lib/object_mapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../lib/object_mapper.dart';
 
 class TestEnum extends Enumerable<int> {
   @override
