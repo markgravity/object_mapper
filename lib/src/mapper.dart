@@ -1,7 +1,6 @@
-import 'mappable.dart';
-import 'transformable.dart';
+part of '../object_mapper.dart';
 
-typedef void MappingSetter(dynamic value);
+typedef MappingSetter = void Function(dynamic value);
 enum MappingType { fromJson, toJson }
 enum ValueType { unknown, list, map, numeric, string, bool, dynamic }
 
@@ -52,18 +51,22 @@ class Mapper {
     }
   }
 
-  _fromJson<T>(String field, dynamic value, MappingSetter setter,
+  void _fromJson<T>(String field, dynamic value, MappingSetter setter,
       [Transformable transform]) {
-    var v = json[field];
+    final subFields = field.split('.');
+    var v = json[subFields[0]];
+    for (var i = 1; i < subFields.length; i++) {
+      v = v != null ? v[subFields[i]] : null;
+    }
     final type = _getValueType(v);
 
     // Transform
     if (transform != null) {
       if (type == ValueType.list) {
         assert(
-            T.toString() != "dynamic", "Missing type at mapping for `$field`");
-        final list = List<T>();
-        for (int i = 0; i < v.length; i++) {
+            T.toString() != 'dynamic', 'Missing type at mapping for `$field`');
+        final list = <T>[];
+        for (var i = 0; i < v.length; i++) {
           final item = transform.fromJson(v[i]);
           list.add(item);
         }
@@ -80,10 +83,10 @@ class Mapper {
       // List
       case ValueType.list:
         // Return it-self, if T is not set
-        if (T.toString() == "dynamic") return setter(v);
-        final list = List<T>();
+        if (T.toString() == 'dynamic') return setter(v);
+        final list = <T>[];
 
-        for (int i = 0; i < v.length; i++) {
+        for (var i = 0; i < v.length; i++) {
           final item = _itemBuilder<T>(v[i], MappingType.fromJson);
           list.add(item);
         }
@@ -101,53 +104,73 @@ class Mapper {
     }
   }
 
-  _toJson<T>(String field, dynamic value, MappingSetter setter,
+  void _toJson<T>(String field, dynamic value, MappingSetter setter,
       [Transformable transform]) {
     if (value == null) return;
 
     final type = _getValueType(value);
+    var data;
 
     // Transform
     if (transform != null) {
       if (type == ValueType.list) {
-        final list = List<dynamic>();
-        for (int i = 0; i < value.length; i++) {
+        final list = <dynamic>[];
+        for (var i = 0; i < value.length; i++) {
           final item = transform.toJson(value[i]);
           list.add(item);
         }
-        this.json[field] = list;
+        data = list;
       } else {
         value = transform.toJson(value);
-        this.json[field] = value;
+        data = value;
       }
-      return;
+    } else {
+      switch (type) {
+        // List
+        case ValueType.list:
+          final list = [];
+
+          for (var i = 0; i < value.length; i++) {
+            final item = _itemBuilder<T>(value[i], MappingType.toJson);
+            list.add(item);
+          }
+
+          data = list;
+          break;
+
+        // Map
+        case ValueType.map:
+          data = value;
+          break;
+
+        default:
+          data = value is Mappable ? value.toJson() : value;
+      }
     }
 
-    switch (type) {
-      // List
-      case ValueType.list:
-        final list = List();
+    final subFields = field.split('.');
+    json = _addSubFieldValue(json, subFields, data);
+  }
 
-        for (int i = 0; i < value.length; i++) {
-          final item = _itemBuilder<T>(value[i], MappingType.toJson);
-          list.add(item);
-        }
+  Map<String, dynamic> _addSubFieldValue(
+      Map<String, dynamic> json, List<String> subFields, dynamic value) {
+    assert(subFields.isNotEmpty);
+    assert(json != null);
 
-        this.json[field] = list;
-        break;
+    final field = subFields[0];
+    subFields.removeAt(0);
 
-      // Map
-      case ValueType.map:
-        this.json[field] = value;
-        break;
+    if (subFields.isEmpty) {
+      json[field] = value;
+    } else {
+      Map<String, dynamic> currentData = json[field] is! Map ? {} : json[field];
 
-      default:
-        if (value is Mappable) {
-          this.json[field] = value.toJson();
-          return;
-        }
-        this.json[field] = value;
+      currentData.addAll(_addSubFieldValue(currentData, subFields, value));
+
+      json[field] = currentData;
     }
+
+    return json;
   }
 
   ValueType _getValueType(object) {
@@ -184,9 +207,9 @@ class Mapper {
     return ValueType.unknown;
   }
 
-  _itemBuilder<T>(value, MappingType mappingType) {
+  dynamic _itemBuilder<T>(value, MappingType mappingType) {
     // Should be numeric, bool, string.. some kind of single value
-    if (T.toString() == "dynamic") {
+    if (T.toString() == 'dynamic') {
       return value;
     }
 

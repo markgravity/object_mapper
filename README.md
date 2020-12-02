@@ -75,10 +75,22 @@ void mapping(Mapper map) {
  map("field", field, (v) => field = v);
 }
 ```
+- `List` of number or bool
+```dart
+void mapping(Mapper map) {
+ map("field", field, (v) => field = v.cast<int>());
+}
+```
 - `List` of object or nested object
 ```dart
 void mapping(Mapper map) {
  map<ObjectClass>("field", field, (v) => field = v);
+}
+```
+- Nested json
+```dart
+void mapping(Mapper map) {
+ map<ObjectClass>("field1.field2.field3", field, (v) => field = v);
 }
 ```
 - With transform, such as `DateTransform`, `EnumTransform`

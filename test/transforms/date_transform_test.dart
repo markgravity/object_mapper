@@ -1,9 +1,10 @@
-import 'package:object_mapper/object_mapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../lib/object_mapper.dart';
+
 void main() {
-  group("fromJson", () {
-    test("#1 Input is string", () {
+  group('fromJson', () {
+    test('#1 Input is string', () {
       final transform = DateTransform();
 
       // null
@@ -11,27 +12,27 @@ void main() {
       expect(date, null);
 
       // full date string
-      date = transform.fromJson("2019-02-02 02:00:00");
+      date = transform.fromJson('2019-02-02 02:00:00');
       expect(date, DateTime(2019, 2, 2, 2, 0, 0));
 
       // non-full date string
-      date = transform.fromJson("2019-02-02 02:00");
+      date = transform.fromJson('2019-02-02 02:00');
       expect(date, DateTime(2019, 2, 2, 2, 0));
 
       // haft date string
-      date = transform.fromJson("2019-02-02");
+      date = transform.fromJson('2019-02-02');
       expect(date, DateTime(2019, 2, 2));
 
       // empty
-      date = transform.fromJson("");
+      date = transform.fromJson('');
       expect(date, null);
 
       // wrong string
-      date = transform.fromJson("wrong");
+      date = transform.fromJson('wrong');
       expect(date, null);
     });
 
-    test("#2 Input in seconds", () {
+    test('#2 Input in seconds', () {
       final transform = DateTransform();
 
       // int
@@ -51,7 +52,7 @@ void main() {
       expect(date, null);
     });
 
-    test("#3 Input in milliseconds", () {
+    test('#3 Input in milliseconds', () {
       final transform = DateTransform(unit: DateUnit.milliseconds);
 
       // int
@@ -72,8 +73,8 @@ void main() {
     });
   });
 
-  group("toJson", () {
-    test("#1 Input is string", () {
+  group('toJson', () {
+    test('#1 Input is string', () {
       final transform = DateTransform();
 
       // full date string
@@ -92,7 +93,7 @@ void main() {
           DateTime(2019, 2, 2).millisecondsSinceEpoch / 1000);
     });
 
-    test("#2 Input in seconds", () {
+    test('#2 Input in seconds', () {
       final transform = DateTransform();
 
       // numeric
@@ -107,7 +108,7 @@ void main() {
       expect(transform.toJson(null), null);
     });
 
-    test("#3 Input is milliseconds", () {
+    test('#3 Input is milliseconds', () {
       final transform = DateTransform(unit: DateUnit.milliseconds);
 
       // numeric
