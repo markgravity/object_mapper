@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:object_mapper/object_mapper.dart';
 
 final json = {
@@ -54,7 +50,6 @@ class BookInfo with Mappable {
 }
 
 void main() async {
-
   // Register factory
   Mappable.factories = {
     CategoryInfo: () => CategoryInfo(),

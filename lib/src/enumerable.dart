@@ -1,8 +1,8 @@
-import 'raw_representable.dart';
+part of '../object_mapper.dart';
 
 abstract class Enumerable<T> implements RawRepresentable<T> {
   const Enumerable();
-  
+
   //
   @override
   int get hashCode => super.hashCode;
@@ -12,6 +12,6 @@ abstract class Enumerable<T> implements RawRepresentable<T> {
     if (identical(this, other)) {
       return true;
     }
-    return other is RawRepresentable && this.rawValue == other.rawValue;
+    return other is RawRepresentable && rawValue == other.rawValue;
   }
 }

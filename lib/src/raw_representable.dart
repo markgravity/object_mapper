@@ -1,4 +1,4 @@
-import 'mappable.dart';
+part of '../object_mapper.dart';
 
 abstract class RawRepresentable<RawValue> {
   final RawValue rawValue;
