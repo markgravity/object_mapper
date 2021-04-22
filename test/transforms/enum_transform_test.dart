@@ -5,11 +5,11 @@ import '../../lib/object_mapper.dart';
 
 class TestEnum extends Enumerable<int> {
   @override
-  final int rawValue;
-  const TestEnum({@required this.rawValue});
+  late final int rawValue;
+  TestEnum({required this.rawValue});
 
-  static const a = TestEnum(rawValue: 0);
-  static const b = TestEnum(rawValue: 1);
+  static final a = TestEnum(rawValue: 0);
+  static final b = TestEnum(rawValue: 1);
 }
 
 void main() {

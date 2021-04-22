@@ -1,11 +1,11 @@
 part of '../../object_mapper.dart';
 
-class DateStringTransform implements Transformable<DateTime, String> {
+class DateStringTransform implements Transformable<DateTime?, String?> {
   DateStringTransform();
 
   //
   @override
-  DateTime fromJson(value) {
+  DateTime? fromJson(value) {
     try {
       if (value == null) return null;
       if (value is String) return DateTime.parse(value);
@@ -18,7 +18,7 @@ class DateStringTransform implements Transformable<DateTime, String> {
   }
 
   @override
-  String toJson(DateTime value) {
+  String? toJson(DateTime? value) {
     if (value == null) return null;
 
     return value.toUtc().toIso8601String();

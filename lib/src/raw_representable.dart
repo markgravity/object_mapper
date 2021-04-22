@@ -1,11 +1,11 @@
 part of '../object_mapper.dart';
 
 abstract class RawRepresentable<RawValue> {
-  final RawValue rawValue;
+  late final RawValue rawValue;
 
   factory RawRepresentable(Type type, RawValue rawValue) {
     var constructor = Mappable.factories[type];
-    if (constructor == null) return null;
-    return constructor(rawValue);
+    assert(constructor != null);
+    return constructor!(rawValue);
   }
 }

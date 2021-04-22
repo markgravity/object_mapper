@@ -7,7 +7,7 @@ abstract class Mappable {
     var constructor = Mappable.factories[type];
     assert(constructor != null,
         '${type.toString()} is not defined in Reflection.factories');
-    return constructor();
+    return constructor!();
   }
 
   void mapping(Mapper map);
@@ -18,7 +18,7 @@ abstract class Mappable {
 
   T clone<T extends Mappable>() {
     final json = toJson();
-    return Mapper.fromJson(json).toObject<T>();
+    return Mapper.fromJson(json).toObject<T>()!;
   }
 
   @override

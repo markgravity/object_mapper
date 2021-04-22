@@ -5,20 +5,19 @@ enum MappingType { fromJson, toJson }
 enum ValueType { unknown, list, map, numeric, string, bool, dynamic }
 
 class Mapper {
-  MappingType _mappingType;
-  Map<String, dynamic> json;
+  late MappingType _mappingType;
+  late Map<String, dynamic> json;
 
   // Constructor
   Mapper();
 
   Mapper.fromJson(this.json);
 
-  T toObject<T>() {
+  T? toObject<T>() {
     _mappingType = MappingType.fromJson;
 
     // Initialize an instance of T
     var instance = Mappable(T);
-    if (instance == null) return null;
 
     // Call mapping for assigning value
     instance.mapping(this);
@@ -39,7 +38,7 @@ class Mapper {
   /// This method will be used when a class
   /// implements the [Mappable.mapping] method
   dynamic call<T>(String field, dynamic value, MappingSetter setter,
-      [Transformable transform]) {
+      [Transformable? transform]) {
     switch (_mappingType) {
       case MappingType.fromJson:
         _fromJson<T>(field, value, setter, transform);
@@ -52,7 +51,7 @@ class Mapper {
   }
 
   void _fromJson<T>(String field, dynamic value, MappingSetter setter,
-      [Transformable transform]) {
+      Transformable? transform) {
     final subFields = field.split('.');
     var v = json[subFields[0]];
     for (var i = 1; i < subFields.length; i++) {
@@ -105,7 +104,7 @@ class Mapper {
   }
 
   void _toJson<T>(String field, dynamic value, MappingSetter setter,
-      [Transformable transform]) {
+      Transformable? transform) {
     if (value == null) return;
 
     final type = _getValueType(value);
@@ -155,7 +154,6 @@ class Mapper {
   Map<String, dynamic> _addSubFieldValue(
       Map<String, dynamic> json, List<String> subFields, dynamic value) {
     assert(subFields.isNotEmpty);
-    assert(json != null);
 
     final field = subFields[0];
     subFields.removeAt(0);

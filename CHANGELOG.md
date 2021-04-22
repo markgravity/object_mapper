@@ -1,3 +1,6 @@
+## 1.1.0
+Support Null safety
+
 ## 1.0.0+2
 
 Updated `README.md`

@@ -1,15 +1,15 @@
 part of '../../object_mapper.dart';
 
 class EnumTransform<Object extends Enumerable, JSON>
-    with Transformable<Object, JSON> {
+    with Transformable<Object?, JSON?> {
   @override
-  Object fromJson(value) {
+  Object? fromJson(value) {
     if (value == null || !(value is JSON)) return null;
-    return RawRepresentable(Object, value);
+    return RawRepresentable(Object, value) as Object;
   }
 
   @override
-  JSON toJson(Object value) {
+  JSON? toJson(Object? value) {
     if (value == null) return null;
     return value.rawValue;
   }
