@@ -3,15 +3,11 @@ import 'raw_representable.dart';
 abstract class Enumerable<T> implements RawRepresentable<T> {
   const Enumerable();
 
-  //
-  @override
-  int get hashCode => super.hashCode;
+  // Return an enum case that has a rawValue equals to 'rawValue'
+  static T factory<T extends Enumerable>(List<T> values, rawValue) {
+    assert(values.length > 0, "The 'values' is empty");
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    return other is RawRepresentable && rawValue == other.rawValue;
+    // other cases: String, bool
+    return values.firstWhere((o) => o.rawValue == rawValue,);
   }
 }

@@ -1,3 +1,7 @@
+## 1.2.1
+
+Enumerable bugfixes
+ 
 ## 1.2.0
 
 Support code gen

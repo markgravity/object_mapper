@@ -8,7 +8,11 @@ class EnumTransform<Object extends Enumerable, JSON> with Transformable<Object?,
   @override
   Object? fromJson(value) {
     if (value == null || !(value is JSON)) return null;
-    return RawRepresentable(Object, value) as Object;
+    try {
+      return RawRepresentable(Object, value) as Object;
+    } on StateError {
+      return null;
+    }
   }
 
   @override
